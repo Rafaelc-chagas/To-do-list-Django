@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+        .btn {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      margin: 0 10px;
+    }
+
+    .btn:hover {
+      background-color: #636363;
+    }
+</style>
+    <h2>{{ task.title }}</h2>
+    <p><strong>Descrição:</strong> {{ task.description }}</p>
+    <div>
+            <div class="buttons-container">
+                <a href="{% url 'task_update' pk=task.pk %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'tasks' %}" class="btn btn-secondary">Voltar</a>
+            </div>
+    </div>
+{% endblock %}

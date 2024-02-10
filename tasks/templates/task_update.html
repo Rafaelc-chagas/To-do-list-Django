@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .btn {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      margin: 0 10px;
+    }
+
+    .btn:hover {
+      background-color: #636363;
+    }
+
+    .btn-danger {
+      background-color: #d9534f;
+      text-decoration: none !important;
+    }
+
+    .btn-danger:hover {
+      background-color: #d2221c;
+    }
+</style>
+    <form method="post" enctype="application/x-www-form-urlencoded">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <div>
+            <div class="buttons-container">
+                <input type="submit" value="Salvar Alterações" class="btn btn-primary">
+                <a href="{% url 'task_delete' pk=task.pk %}" class="btn btn-danger">Deletar</a>
+                <a href="{% url 'tasks' %}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}

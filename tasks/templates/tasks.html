@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .tasks {
+        background-color: #f0f0f0;
+        color: #333;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 1024px;
+        margin: 0 auto;
+    }
+
+    .edit-button {
+        background-color: #f0f0f0;
+        color: #333;
+        float: right
+    }
+
+    .checkbox {
+        background-color: #f0f0f0;
+        color: #333;
+        float: left
+    }
+    form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        text-align: center;
+        padding: 20px;
+    }
+    input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #e3e1e1;
+        border-radius: 4px;
+        margin-right: 10px;
+        transition: border-bottom-color 0.3s ease-in-out;
+    }
+
+    input[type="text"]:focus {
+        outline: none;
+        border-bottom-color: #e3e1e1;
+    }
+
+    button[type="submit"] {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #636363;
+    }
+
+    .task-text {
+        color: #333;
+    }
+
+    .datetime {
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+    }
+</style>
+    <form method="get" action="{% url 'tasks' %}">
+        <input type="text" name="search" placeholder="Buscar Tarefa...">
+        <button type="submit">Buscar</button>
+    </form>
+    {% if tasks %}
+        {% for task in tasks %}
+            <div class="tasks">
+                <div class="checkbox">
+                    {% if task.completed %}
+                        <input type="checkbox" checked disabled>
+                    {% else %}
+                        <input type="checkbox" disabled>
+                    {% endif %}
+                </div>
+                <a href="{% url 'task_detail' pk=task.pk %}" class="task-text">{{ task.title }}</a>
+                <div class="datetime">
+                    <span>Ultima modificação: {{ task.datetime }}</span>
+                </div>
+                <div class="edit-button">
+                    <a href="{% url 'task_update' pk=task.pk %}"><button>Editar</button></a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-results">Nenhuma tarefa encontrada.</p>
+    {% endif %}
+{% endblock %}
